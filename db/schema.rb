@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_17_115150) do
+ActiveRecord::Schema.define(version: 2020_02_17_130655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,15 @@ ActiveRecord::Schema.define(version: 2020_02_17_115150) do
     t.index ["uid"], name: "index_users_on_uid", unique: true
   end
 
+  create_table "webauthn_credentials", force: :cascade do |t|
+    t.text "public_key", null: false
+    t.integer "sign_count", default: 0, null: false
+    t.bigint "setting_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["setting_id"], name: "index_webauthn_credentials_on_setting_id"
+  end
+
   create_table "webauthn_settings", force: :cascade do |t|
     t.string "user_handle", null: false
     t.bigint "user_id", null: false
@@ -31,5 +40,6 @@ ActiveRecord::Schema.define(version: 2020_02_17_115150) do
     t.index ["user_id"], name: "index_webauthn_settings_on_user_id"
   end
 
+  add_foreign_key "webauthn_credentials", "webauthn_settings", column: "setting_id"
   add_foreign_key "webauthn_settings", "users"
 end
