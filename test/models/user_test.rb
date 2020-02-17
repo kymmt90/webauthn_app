@@ -19,4 +19,13 @@ class UserTest < ActiveSupport::TestCase
     assert_instance_of WebAuthn::PublicKeyCredential::CreationOptions, options
     assert_equal 'example', options.user.name
   end
+
+  test 'has_many' do
+    user = User.create(uid: 'example')
+    user.create_webauthn_setting(user_handle: WebAuthn.generate_user_id)
+
+    assert_difference -> { Webauthn::Setting.count }, -1 do
+      user.destroy
+    end
+  end
 end

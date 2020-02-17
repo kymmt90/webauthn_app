@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_one :webauthn_setting, class_name: 'Webauthn::Setting', dependent: :destroy
+
   validates :uid, format: { with: /\A[A-Za-z0-9]{1,32}\z/ }, uniqueness: true
 
   def webauthn_credential_create_options
