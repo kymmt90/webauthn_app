@@ -13,3 +13,15 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+def webauthn_fake_origin
+  'http://localhost'
+end
+
+def webauthn_fake_client
+  WebAuthn::FakeClient.new('http://localhost', encoding: :base64url)
+end
+
+def webauthn_fake_credential_options
+  WebAuthn::Credential.options_for_create(user: { id: '1', name: 'example' })
+end
