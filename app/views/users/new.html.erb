@@ -1,0 +1,5 @@
+<%= form_with url: webauthn_credential_creation_options_path, method: :get, data: { controller: 'signup', action: 'ajax:success->signup#createCredential' } do |form| %>
+  <%= label_tag 'User ID' %>
+  <%= text_field_tag 'uid', '', data: { target: 'signup.uid' } %>
+  <%= form.submit %>
+<% end %>

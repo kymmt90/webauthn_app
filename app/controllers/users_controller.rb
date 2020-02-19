@@ -1,8 +1,11 @@
 class UsersController < ApplicationController
+  def new
+  end
+
   def create
     @signup = User::Signup.new(
       uid: user_params[:uid],
-      public_key_credential: JSON.parse(user_params[:public_key_credential]),
+      public_key_credential: user_params[:public_key_credential],
       challenge: session[:webauthn_creation_challenge]
     )
 
@@ -19,6 +22,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:uid, :public_key_credential)
+    params.require(:user).permit(:uid, public_key_credential: {})
   end
 end

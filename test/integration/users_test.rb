@@ -9,7 +9,7 @@ class UsersTest < ActionDispatch::IntegrationTest
     public_key_credential = webauthn_fake_client.create(challenge: challenge)
 
     assert_difference -> { User.count } => 1, -> { Webauthn::Setting.count } => 1, -> { Webauthn::Credential.count } => 1 do
-      post '/users', params: { user: { uid: 'example', public_key_credential: public_key_credential.to_json } }
+      post '/users', params: { user: { uid: 'example', public_key_credential: public_key_credential } }
     end
 
     assert_equal response.status, 201
