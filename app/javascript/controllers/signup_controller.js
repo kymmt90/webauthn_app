@@ -7,7 +7,6 @@ export default class extends Controller {
 
   createCredential(event) {
     const [data, status, xhr] = event.detail
-
     const uid = this.uidTarget.value
 
     const response = create({ publicKey: data }).then(function(credential) {
@@ -22,10 +21,9 @@ export default class extends Controller {
         credentials: 'same-origin'
       }).then(function(response) {
         if (response.status === 201) {
-          console.log('Sign up succeeded')
-          console.log(response)
-
-          window.location = `/users/${uid}`
+          response.json().then(function(json) {
+            window.location = '/credentials'
+          })
         } else {
           console.log('Sign up failed')
           console.log(response)

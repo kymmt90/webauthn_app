@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  skip_before_action :redirect_not_logged_in_user_to_new_user_path, only: [:new, :create]
+
   def new
   end
 
@@ -15,7 +17,7 @@ class UsersController < ApplicationController
 
       render formats: :json, status: :created
     else
-      render formats: :json, status: :unprocessable_entity
+      render :new, formats: :html
     end
   end
 
