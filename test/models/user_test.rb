@@ -20,6 +20,14 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 'example', options.user.name
   end
 
+  test 'webauthn_credential_request_options' do
+    user = User.new(uid: 'example')
+    user.build_webauthn_setting(user_handle: WebAuthn.generate_user_id)
+    options = user.webauthn_credential_request_options
+
+    assert_instance_of WebAuthn::PublicKeyCredential::RequestOptions, options
+  end
+
   test 'has_many' do
     user = User.create(uid: 'example')
     user.create_webauthn_setting(user_handle: WebAuthn.generate_user_id)

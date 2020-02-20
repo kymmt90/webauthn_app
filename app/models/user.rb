@@ -12,6 +12,12 @@ class User < ApplicationRecord
     )
   end
 
+  def webauthn_credential_request_options
+    options = WebAuthn::Credential.options_for_get(
+      allow: [webauthn_setting.user_handle]
+    )
+  end
+
   private
 
   def webauthn_id
