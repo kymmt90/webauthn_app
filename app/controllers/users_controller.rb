@@ -2,6 +2,9 @@ class UsersController < ApplicationController
   skip_before_action :redirect_not_logged_in_user_to_new_user_path, only: [:new, :create]
 
   def new
+    if logged_in?
+      redirect_to credentials_path
+    end
   end
 
   def create

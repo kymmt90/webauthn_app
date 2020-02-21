@@ -1,3 +1,7 @@
+<%= link_to 'Sign up', new_user_path %>
+
+<hr>
+
 <h1>Log in</h1>
 
 <%= form_with url: webauthn_credential_request_options_path, method: :get, data: { controller: 'login', action: 'ajax:success->login#authenticate' } do |form| %>
