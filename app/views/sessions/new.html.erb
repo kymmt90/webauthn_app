@@ -1,0 +1,7 @@
+<h1>Log in</h1>
+
+<%= form_with url: webauthn_credential_request_options_path, method: :get, data: { controller: 'login', action: 'ajax:success->login#authenticate' } do |form| %>
+  <%= label_tag 'User ID' %>
+  <%= text_field_tag 'uid', '', data: { target: 'login.uid' } %>
+  <%= form.submit %>
+<% end %>
