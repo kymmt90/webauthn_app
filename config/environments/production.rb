@@ -109,4 +109,10 @@ Rails.application.configure do
   # config.active_record.database_selector = { delay: 2.seconds }
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
+
+  if ENV.has_key?('HEROKU_APP_NAME')
+    config.webauthn_origin = "https://#{ENV['HEROKU_APP_NAME']}.herokuapp.com"
+  else
+    config.webauthn_origin = ENV['WEBAUTHN_ORIGIN']
+  end
 end
