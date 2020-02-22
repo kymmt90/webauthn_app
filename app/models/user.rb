@@ -6,13 +6,15 @@ class User < ApplicationRecord
   def authenticate(public_key_credential, challenge)
     credential = WebAuthn::Credential.from_get(public_key_credential)
 
-    webauthn_setting.credentials.any? do |stored_credential|
+    found = webauthn_setting.credentials.find do |stored_credential|
       credential.verify(
         challenge,
         public_key: stored_credential.public_key,
         sign_count: stored_credential.sign_count
       )
     end
+
+    found.update(sign_count: credential.sign_count)
   end
 
   def webauthn_credential_create_options
